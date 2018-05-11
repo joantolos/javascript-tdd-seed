@@ -5,8 +5,7 @@
   "scripts": {
     "clean": "rm -rf node_modules .yarnclean yarn.lock .gradle",
     "lint": "./node_modules/.bin/eslint --fix src test",
-    "test": "npm run lint &&  nyc mocha --bail --exit --recursive --timeout 10000 --bail test/**/*.spec.js",
-    "build": "npm run test && npm run clean"
+    "test": "npm run lint &&  nyc mocha --bail --exit --recursive --timeout 10000 --bail test/**/*.spec.js"
   },
   "keywords": [
     "Node",
@@ -14,6 +13,23 @@
     "Javascript",
     "TDD"
   ],
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "branches": 80,
+    "include": [
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "text",
+      "cobertura",
+      "html"
+    ],
+    "report-dir": "./.nyc_output/coverage-report"
+  },
   "author": "Joan Tolos <joantolos@gmail.com>",
   "license": "ISC",
   "homepage": "http://www.joantolos.com/blog/katacodejam/",
@@ -22,6 +38,7 @@
     "eslint": "4.18.0",
     "linklocal": "2.8.2",
     "mocha": "4.1.0",
+    "mocha-multi-reporters": "^1.1.7",
     "nyc": "^11.5.0"
   },
   "dependencies": {
