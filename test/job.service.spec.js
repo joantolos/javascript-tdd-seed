@@ -1,6 +1,7 @@
-const weather = require('../src/job.service');
+const jobService = require('../src/job.service');
 const chai = require('chai');
 const nock = require('nock');
+const mock = require('mock-require');
 const expect = chai.expect;
 const _ = require('lodash');
 
@@ -33,10 +34,10 @@ describe('The GitHub job service gets', () => {
         }
       ]);
   });
-  
+
   it('at least one job offer', function(done) {
 
-    weather.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
+    jobService.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
       expect(jobServiceResponse).to.be.an('array');
       expect(jobServiceResponse).to.have.lengthOf.at.least(1);
       done();
@@ -45,7 +46,7 @@ describe('The GitHub job service gets', () => {
 
   it('one offer located on Barcelona with title and description', function(done) {
 
-    weather.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
+    jobService.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
       expect(jobServiceResponse[0].location).contains('Barcelona');
       expect(jobServiceResponse[0].title).to.not.be.null;
       expect(jobServiceResponse[0].description).to.not.be.null;
@@ -55,7 +56,7 @@ describe('The GitHub job service gets', () => {
 
   it('one job position from ACME', function(done) {
 
-    weather.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
+    jobService.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
       expect(_.some(jobServiceResponse, { company: 'ACME' })).to.be.true;
       done();
     });
@@ -63,8 +64,25 @@ describe('The GitHub job service gets', () => {
 
   it('one job position from Pied Piper', function(done) {
 
-    weather.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
+    jobService.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
       expect(_.some(jobServiceResponse, { company: 'Pied Piper' })).to.be.true;
+      done();
+    });
+  });
+
+});
+
+describe('The http library', () => {
+
+  beforeEach(function() {
+    mock('http', { request: function() {
+      return 'MOCKED http.request called';
+    } });
+  });
+
+  it('should be mocked at this point', function (done) {
+    jobService.requireHttp(function (jobServiceResponse) {
+      expect(jobServiceResponse).to.be.equal('MOCKED http.request called');
       done();
     });
   });

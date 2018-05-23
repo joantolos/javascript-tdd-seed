@@ -15,6 +15,13 @@ const getPositions = (description, city, callback) => {
 
 };
 
+const requireHttp = (callback) => {
+  const http = require('http');
+
+  callback(http.request());
+};
+
 module.exports = {
-  getPositions: getPositions
+  getPositions: getPositions,
+  requireHttp: requireHttp
 };
