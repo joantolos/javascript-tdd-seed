@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf node_modules .yarnclean yarn.lock .gradle",
     "lint": "./node_modules/.bin/eslint --fix src test",
-    "test": "npm run lint &&  nyc mocha --bail --exit --recursive --timeout 10000 --bail test/**/*.spec.js"
+    "test": "npm run lint && nyc mocha --DEBUG=nock.* --bail --exit --recursive --timeout 10000 --bail test/**/*.spec.js"
   },
   "keywords": [
     "Node",
@@ -39,9 +39,12 @@
     "linklocal": "2.8.2",
     "mocha": "4.1.0",
     "mocha-multi-reporters": "^1.1.7",
-    "nyc": "^11.5.0"
+    "nyc": "^11.5.0",
+    "mock-require": "^3.0.2",
+    "nock": "9.2.3"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "lodash": "4.17.5"
   }
 }
