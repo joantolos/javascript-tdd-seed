@@ -5,9 +5,7 @@
 /tomcat.*
 /.idea
 /*.iml
-/build
 out
-.gradle
 yarn.lock
 node_modules
 .nyc_output
