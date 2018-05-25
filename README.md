@@ -4,6 +4,8 @@ This is a simple project seed in order to code TDD on Javascript. It includes th
 
 The production code is located on ./src and the test code is located on ./test with the extension *.spec.js
 
+A more detailed explanation can be found at: www.joantolos.com/blog/javascripttrifecta
+
 ## Running tests
 
 Install the dependencies:
