@@ -70,14 +70,6 @@ describe('The GitHub job service gets', () => {
     });
   });
 
-  it('one job position from Pied Piper', function(done) {
-
-    jobService.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
-      expect(_.some(jobServiceResponse, { company: 'Pied Piper' })).to.be.true;
-      done();
-    });
-  });
-
 });
 
 describe('The nock library', () => {
