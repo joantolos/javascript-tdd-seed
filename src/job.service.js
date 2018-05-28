@@ -7,9 +7,14 @@ const getPositions = (description, city, callback) => {
     method: 'GET'
   };
 
-  https.request(httpOptions, function(response) {
-    response.on('data', function (chunk) {
-      callback(JSON.parse(chunk));
+  https.request(httpOptions, function(serviceResponse) {
+    let body = [];
+
+    serviceResponse.on('data', (chunk) => {
+      body.push(chunk);
+    }).on('end', () => {
+      body = Buffer.concat(body).toString();
+      callback(JSON.parse(body));
     });
   }).end();
 

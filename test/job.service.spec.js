@@ -70,6 +70,32 @@ describe('The GitHub job service gets', () => {
     });
   });
 
+  it('one job position from Pied Piper', function(done) {
+
+    jobService.getPositions('javascript', 'barcelona', function (jobServiceResponse) {
+      expect(_.some(jobServiceResponse, { company: 'Pied Piper' })).to.be.true;
+      done();
+    });
+  });
+
+});
+
+describe('The nock library', () => {
+
+  it('should able to record http request', function (done) {
+    nock.recorder.rec({
+      dont_print: true,
+      output_objects: true,
+      enable_reqheaders_recording: true
+    });
+
+    jobService.getPositions('javascript', 'barcelona', function () {
+      expect(nock.recorder.play()).to.not.be.null;
+      done();
+    });
+
+  });
+
 });
 
 describe('The http library', () => {
